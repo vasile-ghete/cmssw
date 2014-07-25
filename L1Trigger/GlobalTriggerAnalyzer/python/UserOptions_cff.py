@@ -14,7 +14,7 @@ import sys
 ###################### user choices ######################
 
 # number of events to be run (-1 for all)
-maxNumberEvents = 10
+maxNumberEvents = 1000
 #maxNumberEvents = -1
 
 # useRelValSample: choose the type of sample used:
@@ -37,8 +37,9 @@ if useRelValSample == False :
     
     # choose one sample identifier from the list of data samples 
     #
-    sampleIdentifier = '165633-CAFDQM'
-    #sampleIdentifier = '191833_RAW'
+    #sampleIdentifier = '165633-CAFDQM'
+    #sampleIdentifier = '207515_RAW'
+    sampleIdentifier = '207454_RAW'
     #sampleIdentifier = '205666.A.storageManager'
 
 else :
@@ -51,7 +52,7 @@ else :
     
     # choose (pre)release used to produce the RelVal samples
     #
-    sampleFromRelease = 'CMSSW_5_2_3'
+    sampleFromRelease = 'CMSSW_5_3_12_patch2'
 
    # RelVals samples - add the "short name" of the dataset e.g. /RelValLM1_sfts/...
     #
@@ -72,11 +73,11 @@ useLocalFiles = False
 #useLocalFiles = True 
 
 # override default global tag - expert choice, do it only if you know what you do
-overrideGlobalTag = False
-#overrideGlobalTag = True
+#overrideGlobalTag = False
+overrideGlobalTag = True
 
 if overrideGlobalTag == True :
-    myGlobalTag = 'GR_P_V28'
+    myGlobalTag = 'GR_R_53_V21A'
 
 ###################### end user choices ###################
 
@@ -93,9 +94,6 @@ selectedLumis= cms.untracked.VLuminosityBlockRange()
 
 if (useRelValSample == True) and (useLocalFiles == False) :
     
-    # end of data samples 
-    #            
-
     print "   Release:   ", sampleFromRelease
     print "   Dataset:   ", dataset
     print "   Data type: ", dataType
@@ -168,45 +166,53 @@ elif (useRelValSample == False) and (useLocalFiles == False) :
 
     # data
     
-    if sampleIdentifier == '191833_RAW' :
-        runNumber = '191833'
-        dataset = '/DoubleElectron/Run2012A-v1/RAW'
+    if sampleIdentifier == '207454_RAW' :
+        runNumber = '207454'
+        dataset = '/MinimumBias/Run2012D-v1/RAW'
         dataType = 'RAW'
         useDAS = True
         selectedLumis= cms.untracked.VLuminosityBlockRange(
-                                                '191833:1'
-                                                )
-        selectedEvents = cms.untracked.VEventRange(
-                                    '191833:256674',
-                                    '191833:588211'
+                                    '207454:79-207454:1988'
                                     )
         
 
-    elif sampleIdentifier == '191833_RECO' :
-        runNumber = '191833'
-        dataset = '/DoubleElectron/Run2012A-PromptReco-v1/RECO'
+    elif sampleIdentifier == '207454_RECO' :
+        runNumber = '207454'
+        dataset = '/MinimumBias/Run2012D-PromptReco-v1/RECO'
         dataType = 'RECO'
         useDAS = True
         selectedLumis= cms.untracked.VLuminosityBlockRange(
-                                                '191833:1'
-                                                )
-        selectedEvents = cms.untracked.VEventRange(
-                                    '191833:256674',
-                                    '191833:588211'
+                                    '207454:79-207454:1988'
                                     )
 
-    elif sampleIdentifier == '191833_AOD' :
-        runNumber = '191833'
-        dataset = '/DoubleElectron/Run2012A-PromptReco-v1/AOD'
-        dataType = 'RECO'
+    elif sampleIdentifier == '207454_AOD' :
+        runNumber = '207454'
+        dataset = '/MinimumBias/Run2012D-PromptReco-v1/AOD'
+        dataType = 'AOD'
         useDAS = True
         selectedLumis= cms.untracked.VLuminosityBlockRange(
-                                                '191833:1'
-                                                )
-        selectedEvents = cms.untracked.VEventRange(
-                                    '191833:256674',
-                                    '191833:588211'
+                                    '207454:79-207454:1988'
                                     )
+
+    elif sampleIdentifier == '207454_RAW_RECO' :
+        runNumber = '207454'
+        dataset = '/MinimumBias/Run2012D-HLTPhysics-22Jan2013-v1/RAW-RECO'
+        dataType = 'RAW-RECO'
+        useDAS = True
+        selectedLumis= cms.untracked.VLuminosityBlockRange(
+                                    '207454:79-207454:1988'
+                                    )
+
+    #  8 TeV data, pileup 33
+    elif sampleIdentifier == '207515_RAW' :
+        runNumber = '207515'
+        dataset = '/L1Accept/Run2012D-v1/RAW'
+        dataType = 'RAW'
+        useDAS = True
+        selectedLumis= cms.untracked.VLuminosityBlockRange(
+                                                '207515:81',
+                                                '207515:116'
+                                                )
 
     # splash events 2012    
     elif sampleIdentifier == '187858' :
