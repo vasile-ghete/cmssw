@@ -11,6 +11,7 @@ import sys
 
 process = cms.Process("L1GtEmulTrigReport")
 
+# import number of events, sample and global tag 
 print '\n'
 from L1Trigger.GlobalTriggerAnalyzer.UserOptions_cff import *
 if errorUserOptions == True :
@@ -26,6 +27,10 @@ customL1Menu = False
 if customL1Menu == True :
     from L1Trigger.Configuration.L1Trigger_custom import customiseL1Menu
     process=customiseL1Menu(process)
+
+# Stage 1 calorimeter 
+stage1Calorimeter = True
+
 
 # reset all prescale factors and masks
 from L1Trigger.Configuration.L1Trigger_custom import customiseResetPrescalesAndMasks
@@ -53,7 +58,8 @@ process.maxEvents = cms.untracked.PSet(
 # https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideFrontierConditions
 
 process.load('Configuration.StandardSequences.GeometryDB_cff')
-process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
+#process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
+process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
 
 process.GlobalTag.globaltag = useGlobalTag
 
@@ -75,7 +81,9 @@ else :
 
 # input tag for GCT readout collections: 
 #     gctDigis = GCT emulator (default) 
-if useRelValSample == True :
+if (useRelValSample == True) and (stage1Calorimeter == True) :
+    process.l1GtEmulDigis.GctInputTag = 'simCaloStage1LegacyFormatDigis'
+elif (useRelValSample == True) and (stage1Calorimeter == False): 
     process.l1GtEmulDigis.GctInputTag = 'simGctDigis'
 else :
     process.l1GtEmulDigis.GctInputTag = 'gctDigis'

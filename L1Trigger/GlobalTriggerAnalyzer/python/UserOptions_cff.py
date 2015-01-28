@@ -26,14 +26,14 @@ useRelValSample = False
 #
 # comment/uncomment the next line to choose sample type 
 # (un-commented selects MC RelVal)
-#useRelValSample=True
+useRelValSample=True
 
 if useRelValSample == False :
     
     # choose the global tag type  
     #  
-    globalTag = 'auto:com10'        # GR_R_*
-    #globalTag = 'auto:hltonline'   # GR_H_*
+    globalTag = 'auto:run1_data'        # GR_R_*
+    #globalTag = 'auto:run1_hlt'        # GR_H_*
     
     # choose one sample identifier from the list of data samples 
     #
@@ -45,9 +45,9 @@ else :
 
     # choose the global tag type  
     #  
-    #globalTag = 'auto:mc'
-    globalTag = 'auto:startup'
-    #globalTag = 'auto:starthi'
+    #globalTag = 'auto:run1_mc'
+    globalTag = 'auto:MCRUN2_72_V3A'
+    #globalTag = 'auto:run1_mc_hi'
     
     # choose (pre)release used to produce the RelVal samples
     #
@@ -58,7 +58,8 @@ else :
     #dataset = 'RelValMinBias'
     #dataset = 'RelValTTbar'
     #dataset = 'RelValQCD_Pt_80_120'
-    dataset = 'RelValLM1_sfts'
+    #dataset = 'RelValLM1_sfts'
+    dataset = 'RelValQCD_Pt_600_800_13'
     
     # data type
     #
@@ -93,7 +94,6 @@ selectedLumis= cms.untracked.VLuminosityBlockRange()
 
 if (useRelValSample == True) and (useLocalFiles == False) :
     
-    # end of data samples 
     #            
 
     print "   Release:   ", sampleFromRelease
