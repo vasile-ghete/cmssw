@@ -11,7 +11,7 @@ hltHiggsValidator = cms.EDAnalyzer("HLTHiggsValidator",
     genParticleLabel = cms.string("genParticles"),
     
     # -- The instance name of the reco::GenJets collection
-    genJetLabel = cms.string("ak5GenJets"),
+    genJetLabel = cms.string("ak4GenJets"),
 
     # -- The instance name of the reco::PFJetCollection collection
     recoHtJetLabel = cms.untracked.string("ak4PFJetsCHS"),
@@ -110,19 +110,24 @@ hltHiggsValidator = cms.EDAnalyzer("HLTHiggsValidator",
 
     HWW = cms.PSet( 
         hltPathsToCheck = cms.vstring(
-          #dileptons for Hww and Hzz
+              #dileptons for Hww and Hzz
               "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v",
               "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_v",
               "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v",
               "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v",
               "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v",
+              #dilepton path for the 7e33 menu at 25ns
+              "HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v",
+              "HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVL_v",
+              "HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v",
               #prescaled control paths
               "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_v",
               "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v",
               "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_v",
               "HLT_Ele23_CaloIdL_TrackIdL_IsoVL_v",
-              "HLT_Ele12_CaloIdL_TrackIdL_IsoVL_v"
-          ),
+              "HLT_Ele12_CaloIdL_TrackIdL_IsoVL_v",
+              "HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_v"  
+        ),
         recMuonLabel  = cms.string("muons"),
         recElecLabel  = cms.string("gedGsfElectrons"),
         # -- Analysis specific cuts
@@ -145,8 +150,8 @@ hltHiggsValidator = cms.EDAnalyzer("HLTHiggsValidator",
         ),
     Hgg = cms.PSet( 
         hltPathsToCheck = cms.vstring(
-            "HLT_Photon36_R9Id85_OR_CaloId24b40e_Iso50T80L_Photon18_AND_HE10_R9Id65_Mass95_v",
-            "HLT_Photon42_R9Id85_OR_CaloId24b40e_Iso50T80L_Photon22_AND_HE10_R9Id65_v",
+            "HLT_Diphoton36_18_R9Id85_OR_Iso50T80LCaloId24b40e_AND_HE10P5_R9Id50b80e_Mass95_v",
+            "HLT_Diphoton42_22_R9Id85_OR_Iso50T80LCaloId24b40e_AND_HE10P5_R9Id50b80e_v",
             "HLT_Photon28_R9Id85_OR_CaloId24b40e_Iso50T80L_Photon14_AND_HE10_R9Id65_Mass50_Eta1p5_v",
             "HLT_Photon36_R9Id85_AND_CaloId24b40e_Iso50T80L_Photon18_AND_HE10_R9Id65_Mass30_v",
             "HLT_Photon36_R9Id85_AND_CaloId24b40e_Iso50T80L_Photon18_AND_HE10_R9Id65_v",
@@ -178,8 +183,9 @@ hltHiggsValidator = cms.EDAnalyzer("HLTHiggsValidator",
         ),
      Htaunu = cms.PSet(
         hltPathsToCheck = cms.vstring(
-            "HLT_LooseIsoPFTau35_Trk20_Prong1_MET70_v",
-            "HLT_LooseIsoPFTau35_Trk20_Prong1_MET75_v",
+#            "HLT_LooseIsoPFTau35_Trk20_Prong1_MET70_v",
+#            "HLT_LooseIsoPFTau35_Trk20_Prong1_MET75_v",
+            "HLT_LooseIsoPFTau50_Trk30_eta2p1_MET80_v",
             "HLT_LooseIsoPFTau50_Trk30_eta2p1_MET120_v",
             # monitoring triggers for efficiency measurement
             "HLT_LooseIsoPFTau50_Trk30_eta2p1_v",
@@ -190,7 +196,14 @@ hltHiggsValidator = cms.EDAnalyzer("HLTHiggsValidator",
         recCaloMETLabel = cms.string("caloMet"),
         recMuonLabel  = cms.string("muons"),
         # -- Analysis specific cuts
-        minCandidates = cms.uint32(2), 
+        minCandidates = cms.uint32(1), 
+        parametersTurnOn = cms.vdouble(0,
+                                1, 8, 9, 10,
+                                11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+                                22, 24, 26, 28, 30, 32, 34, 36, 38, 40,
+                                45, 50, 55, 60, 65, 70, 
+                                80, 100, 120, 140, 160, 180, 200,
+                                ),
         ),
     H2tau  = cms.PSet( 
         hltPathsToCheck = cms.vstring(
@@ -206,18 +219,18 @@ hltHiggsValidator = cms.EDAnalyzer("HLTHiggsValidator",
             "HLT_DoubleIsoMu17_eta2p1_v",
             "HLT_IsoMu16_eta2p1_CaloMET30_v",
             "HLT_Mu16_eta2p1_CaloMET30_v",
-            "HLT_Ele27_eta2p1_WP85_Gsf_DoubleMediumIsoPFTau40_Trk1_eta2p1_Reg_v",
-            "HLT_Ele32_eta2p1_WP85_Gsf_DoubleMediumIsoPFTau40_Trk1_eta2p1_Reg_v",
-            "HLT_Ele27_eta2p1_WP85_Gsf_LooseIsoPFTau20_v",
-            "HLT_Ele32_eta2p1_WP85_Gsf_LooseIsoPFTau20_v",
-            "HLT_Ele22_eta2p1_WP85_Gsf_v",
-            "HLT_DoubleEle24_22_eta2p1_WP85_Gsf_v",
+            "HLT_Ele27_eta2p1_WP75_Gsf_DoubleMediumIsoPFTau40_Trk1_eta2p1_Reg_v",
+            "HLT_Ele32_eta2p1_WP75_Gsf_DoubleMediumIsoPFTau40_Trk1_eta2p1_Reg_v",
+            "HLT_Ele27_eta2p1_WP75_Gsf_LooseIsoPFTau20_v",
+            "HLT_Ele32_eta2p1_WP75_Gsf_LooseIsoPFTau20_v",
+            "HLT_Ele22_eta2p1_WP75_Gsf_v",
+            "HLT_DoubleEle24_22_eta2p1_WP75_Gsf_v",
             "HLT_IsoMu24_eta2p1_LooseIsoPFTau20_v",
             "HLT_IsoMu24_eta2p1_IterTrk02_v",
             "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_v",
-            "HLT_Ele22_eta2p1_WP85_Gsf_LooseIsoPFTau20_v",
-            "HLT_Ele27_eta2p1_WP85_Gsf_v",
-            "HLT_Ele32_eta2p1_WP85_Gsf_v",
+            "HLT_Ele22_eta2p1_WP75_Gsf_LooseIsoPFTau20_v",
+            "HLT_Ele27_eta2p1_WP75_Gsf_v",
+            "HLT_Ele32_eta2p1_WP75_Gsf_v",
             "HLT_Ele17_Ele8_Gsf_v"
             ),
         recPFTauLabel  = cms.string("hpsPFTauProducer"),
@@ -242,8 +255,11 @@ hltHiggsValidator = cms.EDAnalyzer("HLTHiggsValidator",
     ZnnHbb = cms.PSet( 
         hltPathsToCheck = cms.vstring(
             "HLT_CaloMHTNoPU90_PFMET90_PFMHT90_IDLoose_BTagCSV0p7_v",
-            "HLT_PFMET120_PFMHT120_IDLoose_v",
             "HLT_CaloMHTNoPU90_PFMET90_PFMHT90_IDLoose_v"
+            "HLT_PFMET120_PFMHT120_IDLoose_v",
+            "HLT_PFMET110_PFMHT110_IDLoose_v",
+            "HLT_PFMET100_PFMHT100_IDLoose_v",
+            "HLT_PFMET90_PFMHT90_IDLoose_v",
             ),
         Jet_recCut   = cms.string("pt > 10 && abs(eta) < 2.6"),
         recJetLabel  = cms.string("ak4PFJetsCHS"),
@@ -268,7 +284,7 @@ hltHiggsValidator = cms.EDAnalyzer("HLTHiggsValidator",
         ),
     TTHbbej  = cms.PSet( 
         hltPathsToCheck = cms.vstring(
-            "HLT_Ele27_eta2p1_WP85_Gsf_v",
+            "HLT_Ele27_WP85_Gsf_v",
             "HLT_Ele27_eta2p1_WP85_Gsf_HT200_v"
             ),
         recElecLabel   = cms.string("gedGsfElectrons"),

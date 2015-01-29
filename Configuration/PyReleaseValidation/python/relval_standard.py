@@ -4,6 +4,9 @@ from  Configuration.PyReleaseValidation.relval_steps import *
 # here only define the workflows as a combination of the steps defined above:
 workflows = Matrix()
 
+
+overridesEv5={'-n':'5'}
+
 # each workflow defines a name and a list of steps to be done. 
 # if no explicit name/label given for the workflow (first arg),
 # the name of step1 will be used
@@ -12,9 +15,11 @@ workflows = Matrix()
 workflows[1] = ['', ['ProdMinBias','DIGIPROD1','RECOPROD1']]
 workflows[2] = ['', ['ProdTTbar','DIGIPROD1','RECOPROD1']]
 workflows[3] = ['', ['ProdQCD_Pt_3000_3500','DIGIPROD1','RECOPROD1']]
+workflows.addOverride(3,overridesEv5)
 workflows[1301] = ['', ['ProdMinBias_13','DIGIUP15PROD1','RECOPRODUP15','MINIAODMCUP15']]
 workflows[1302] = ['', ['ProdTTbar_13','DIGIUP15PROD1','RECOPRODUP15','MINIAODMCUP15']]
 workflows[1303] = ['', ['ProdQCD_Pt_3000_3500_13','DIGIUP15PROD1','RECOPRODUP15','MINIAODMCUP15']]
+workflows.addOverride(1303,overridesEv5)
 
 ### data ###
 workflows[4.5]  = ['', ['RunCosmicsA','RECOCOSD','ALCACOSD','HARVESTDC']]
@@ -115,6 +120,7 @@ workflows[135.2] = ['SingleMuPt10_UP15', ['SingleMuPt10FS_UP15','HARVESTUP15FS',
 workflows[135.3] = ['SingleMuPt100_UP15', ['SingleMuPt100FS_UP15','HARVESTUP15FS','MINIAODMCUP15FS']]
 workflows[135.4] = ['ZEE_13', ['ZEEFS_13','HARVESTUP15FS','MINIAODMCUP15FS']]
 workflows[135.5] = ['ZTT_13',['ZTTFS_13','HARVESTUP15FS','MINIAODMCUP15FS']]
+workflows[135.9] = ['ZMM_13',['ZMMFS_13','HARVESTUP15FS','MINIAODMCUP15FS']]
 
 workflows[135.6]  = ['QCD_FlatPt_15_3000_13', ['QCDFlatPt153000FS_13','HARVESTUP15FS','MINIAODMCUP15FS']]
 workflows[135.7] = ['H130GGgluonfusion_13', ['H130GGgluonfusionFS_13','HARVESTUP15FS','MINIAODMCUP15FS']]
@@ -154,6 +160,7 @@ workflows[38] = ['', ['QCD_FlatPt_15_3000HS','DIGI','RECO','HARVEST']]
 
 workflows[9]  = ['', ['Higgs200ChargedTaus','DIGI','RECO','HARVEST']]
 workflows[13] = ['', ['QCD_Pt_3000_3500','DIGI','RECO','HARVEST']]
+workflows.addOverride(13,overridesEv5)
 workflows[39] = ['', ['QCD_Pt_600_800','DIGI','RECO','HARVEST']]
 workflows[23] = ['', ['JpsiMM','DIGI','RECO','HARVEST']]
 workflows[25] = ['', ['TTbar','DIGI','RECO','HARVEST','ALCATT']]
@@ -189,6 +196,7 @@ workflows[1338] = ['', ['QCD_FlatPt_15_3000HS_13','DIGIUP15','RECOUP15','HARVEST
 
 workflows[1309]  = ['', ['Higgs200ChargedTaus_13','DIGIUP15','RECOUP15','HARVESTUP15','MINIAODMCUP15']]
 workflows[1313] = ['', ['QCD_Pt_3000_3500_13','DIGIUP15','RECOUP15','HARVESTUP15','MINIAODMCUP15']]
+workflows.addOverride(1313,overridesEv5)
 workflows[1339] = ['', ['QCD_Pt_600_800_13','DIGIUP15','RECOUP15','HARVESTUP15','MINIAODMCUP15']]
 
 workflows[1347] = ['', ['Upsilon1SToMuMu_13','DIGIUP15','RECOUP15','HARVESTUP15','MINIAODMCUP15']]
@@ -228,6 +236,8 @@ workflows[140] = ['',['HydjetQ_MinBias_2760GeV','DIGIHI','RECOHI','HARVESTHI']]
 workflows[140.1] = ['',['QCD_Pt_80_120_13_HI','DIGIHI','RECOHI','HARVESTHI']]
 workflows[140.2] = ['',['PhotonJets_Pt_10_13_HI','DIGIHI','RECOHI','HARVESTHI']]
 workflows[140.3] = ['',['ZMM_13_HI','DIGIHI','RECOHI','HARVESTHI']]
+workflows[140.4] = ['',['ZEEMM_13_HI','DIGIHI','RECOHI','HARVESTHI']]
+
 # legacy: 141 => B0; 143 => B3 ; 144 => B5
 #workflows[142] = ['',['HydjetQ_B8_2760GeV','DIGIHI','RECOHI','HARVESTHI','MINIAODMCUP15HI']]
 

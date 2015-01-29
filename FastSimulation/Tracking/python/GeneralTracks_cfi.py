@@ -2,13 +2,13 @@ import FWCore.ParameterSet.Config as cms
 
 import RecoTracker.FinalTrackSelectors.trackListMerger_cfi
 generalTracksBase = RecoTracker.FinalTrackSelectors.trackListMerger_cfi.trackListMerger.clone(
-    TrackProducers = (cms.InputTag('initialStepTracks'),
-                      cms.InputTag('lowPtTripletStepTracks'),
-                      cms.InputTag('pixelPairStepTracks'),
-                      cms.InputTag('detachedTripletStepTracks'),
-                      cms.InputTag('mixedTripletStepTracks'),
-                      cms.InputTag('pixelLessStepTracks'),
-                      cms.InputTag('tobTecStepTracks'),
+    TrackProducers = (cms.InputTag('iterativeInitialTracks'),
+                      cms.InputTag('iterativeLowPtTripletTracksWithTriplets'),
+                      cms.InputTag('iterativePixelPairTracks'),
+                      cms.InputTag('iterativeDetachedTripletTracks'),
+                      cms.InputTag('iterativeMixedTripletStepTracks'),
+                      cms.InputTag('iterativePixelLessTracks'),
+                      cms.InputTag('iterativeTobTecTracks'),
                       #### not validated yet                      cms.InputTag('muonSeededTracksOutIn'),
                       #### not validated yet                      cms.InputTag('muonSeededTracksInOut')
                       ),
@@ -32,11 +32,4 @@ generalTracksBase = RecoTracker.FinalTrackSelectors.trackListMerger_cfi.trackLis
     )
 
 
-# this block is to switch between defaul behaviour (MixingMode=='GenMixing') and new mixing
-from FastSimulation.Configuration.CommonInputs_cff import MixingMode
-if (MixingMode=='GenMixing'):
-    generalTracks = generalTracksBase.clone()
-elif (MixingMode=='DigiRecoMixing'):
-    generalTracksBeforeMixing = generalTracksBase.clone()
-else: 
-    print 'unsupported MixingMode label'
+generalTracksBeforeMixing = generalTracksBase.clone()
